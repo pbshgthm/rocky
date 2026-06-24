@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# raw vendor CAD — kept locally; the site renders from public/models/*.glb
+# anchored to repo root so it does NOT match public/models/
+/models/

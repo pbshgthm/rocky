@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Rocky — Full view</title>
+    <style>
+      :root {
+        --bg: #f6f1e8;
+        --ink: #221e18;
+        --muted: #837866;
+        --line: #d2c8b4;
+        --accent: #b0542a;
+        --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body { overflow: hidden; background: #efe9dd; color: var(--ink); font: 13px/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
+      #app { position: fixed; inset: 0; }
+      #app canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+      #panel { position: fixed; top: 20px; left: 20px; width: 216px; padding: 14px; background: var(--bg); border: 1px solid var(--line); }
+      .title { margin: 0; font: 600 11px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; }
+      .subtitle { margin: 4px 0 14px; font-size: 11px; color: var(--muted); }
+
+      .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); margin-bottom: 13px; }
+      .seg button {
+        appearance: none; border: 0; background: var(--bg); color: var(--muted);
+        font: 600 11px/1 var(--sans); letter-spacing: 0.1em; text-transform: uppercase;
+        padding: 8px 0; cursor: pointer; transition: background 0.13s, color 0.13s;
+      }
+      .seg button + button { border-left: 1px solid var(--line); }
+      .seg button:hover { color: var(--ink); }
+      .seg button.active { background: var(--ink); color: var(--bg); }
+
+      .row { display: flex; align-items: center; justify-content: space-between; height: 30px; }
+      .label { font-size: 13px; font-weight: 500; color: var(--ink); }
+
+      .switch { position: relative; width: 32px; height: 18px; flex: none; display: inline-block; }
+      .switch input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
+      .track { position: absolute; inset: 0; border-radius: 999px; background: #e3e5e8; border: 1px solid rgba(0,0,0,0.05); transition: background 0.16s; pointer-events: none; }
+      .track::after { content: ""; position: absolute; top: 1px; left: 1px; width: 14px; height: 14px; border-radius: 999px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.28); transition: transform 0.16s; }
+      .switch input:checked + .track { background: var(--accent); }
+      .switch input:checked + .track::after { transform: translateX(14px); }
+
+      .sep { height: 1px; background: var(--line); border: 0; margin: 12px 0; }
+      .btn { width: 100%; height: 32px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: 500 13px/1 var(--sans); cursor: pointer; transition: background 0.13s; }
+      .btn:hover { background: #f5f5f5; }
+
+      .back { position: fixed; top: 20px; right: 20px; font: 600 0.7rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; background: var(--bg); border: 1px solid var(--line); padding: 9px 12px; }
+      .back:hover { border-color: var(--ink); }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div id="panel">
+      <p class="title">Project Rocky</p>
+      <p class="subtitle">Reconfigurable quadruped</p>
+
+      <div class="seg">
+        <button id="seg-dog" type="button" class="active">Dog</button>
+        <button id="seg-crab" type="button">Crab</button>
+      </div>
+
+      <div class="row">
+        <span class="label">Walk gait</span>
+        <label class="switch"><input type="checkbox" id="walk" /><span class="track"></span></label>
+      </div>
+      <div class="row">
+        <span class="label">Auto-rotate</span>
+        <label class="switch"><input type="checkbox" id="spin" /><span class="track"></span></label>
+      </div>
+
+      <hr class="sep" />
+      <button class="btn" id="reset" type="button">Reset view</button>
+    </div>
+
+    <a class="back" href="index.html">← Back</a>
+
+    <script type="module">
+      import { initRobot } from "/src/robot.js";
+      // full-page mount: dog stance, static until you toggle, full control panel
+      initRobot(document.getElementById("app"), { dog: true, walk: false, autoRotate: false });
+    </script>
+  </body>
+</html>

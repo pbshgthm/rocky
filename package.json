@@ -1,0 +1,21 @@
+{
+  "name": "rocky",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Project Rocky — an open-source quadruped that carries its own intelligence. One-page site + interactive three.js viewer.",
+  "packageManager": "pnpm@11.5.2",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.4.0",
+    "occt-import-js": "^0.0.23",
+    "vite": "^5.4.0"
+  }
+}
